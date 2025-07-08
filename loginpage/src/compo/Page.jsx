@@ -22,40 +22,52 @@ const Page = () => {
     const { fname, sname, mail, password, cpass } = formData;
 
     if (password !== cpass) {
-      alert('Passwords do not match');
+      alert('❌ Passwords do not match');
       return;
     }
 
-    const res = await fetch('http://localhost:5000/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        firstName: fname,
-        secondName: sname,
-        email: mail,
-        password,
-      }),
-    });
+    try {
+      const res = await fetch('http://localhost:5050/api/user/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: fname,
+          secondName: sname,
+          email: mail,
+          password,
+        }),
+      });
 
-    const data = await res.json();
-    alert(data.message);
+      const data = await res.json();
+      console.log('Signup response:', data);
+      alert(data.message);
+    } catch (err) {
+      alert('Signup failed. Please try again.');
+      console.error('Signup error:', err);
+    }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const { loginEmail, loginPassword } = formData;
 
-    const res = await fetch('http://localhost:5000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: loginEmail,
-        password: loginPassword,
-      }),
-    });
+    try {
+      const res = await fetch('http://localhost:5050/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+        }),
+      });
 
-    const data = await res.json();
-    alert(data.message);
+      const data = await res.json();
+      console.log('Login response:', data);
+      alert(data.message);
+    } catch (err) {
+      alert('Login failed. Please try again.');
+      console.error('Login error:', err);
+    }
   };
 
   return (
@@ -85,7 +97,6 @@ const Page = () => {
       </div>
 
       <div className="overlay-container">
-        {/* Bubbles */}
         <div className="bubbles">
           {[...Array(20)].map((_, i) => (
             <span key={i} style={{ '--i': i + 1 }}></span>
