@@ -27,7 +27,7 @@ const Page = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5050/api/user/signup', {
+      const res = await fetch('https://animated-login-page.onrender.com/api/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -52,7 +52,7 @@ const Page = () => {
     const { loginEmail, loginPassword } = formData;
 
     try {
-      const res = await fetch('http://localhost:5050/api/user/login', {
+      const res = await fetch('https://animated-login-page.onrender.com/api/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
